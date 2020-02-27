@@ -1,0 +1,25 @@
+language: node_js
+node_js: stable
+services:
+- postgresql
+addons:
+  postgresql: '10'
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
+deploy:
+  provider: heroku
+  app: mockshop-staging
+  on:
+    repo: chubbystrings/mock-shop
+  skip_cleanup: true
+install:
+- npm install
+script:
+- npm test:prod
+dd:
+  secure: TELDTI3hNpwrdgCPj6rq5aib749uWaLLJsaqZvLl63Bv7vbnAK727iXQxWS6rtz/6eaFYVfoTtHDmyq49mvv1IjbtsVHMTLnzVKxTQNV8AfJ7q5jC3Nmu9slAfWjVE93dzRe4PCwqbusxUROUftS/AMgtv7IZipZzQjIv+9A0zX7rBBuGZVNMHzKlKgWjE3vZWmUMTkS+oiXNP6oOjRSUJ1lE5n7GYghBaUQJnQhzGD+7GHGiiP1QtVeQF5AFrtVe9wuD69TzbNlqhQKFIY/JLMrxhVW5BrJRoe7OcByNzQuNBNeCfPeecYkyg/65+ReuAHEkW22kDRcf4pPmoNJYugcBc0yDKi6TwQfp18I1i2i7HVGJUgr18FEzs3DnwYZLbHnCUljBqd8mbAgSQanQy7djnROSXELAO0ZgW/X0slTnNaOJNbiF0MHTqP3kIWowdfzwH1uM2vL2BfMgJah++W8okbNVUQ7WQxGpuTn6c+eCDTHYxmtKRQC/oXh6MHqKm+FBcupUYW8awY85rWmKMJMYTQfGuPCHgB0LFPislEyW+CD2HjSvfpuYFs8FC/lR5WygkIonAhSbpMbtqWfdUctYa3OaA6Z5PKyCr1Zw6v2qh1zY2XFuHB3d+Z4X6TDs7yJ5ECRbwElh4fLVa8iTRNLf2Xbhhy4S+UcWQX9o0I=
+env:
+  global:
+    secure: kN2Tv1Q7SLIfk16pNkd8r+JWQx78vC+KWVlp4uZHBOwtTXZPiJ80G9I6Wb+fmK4atzl3C584+o3i1o/1qRQ6A3n+FZDaLTYZi1FyPZjCBxyVZqXH5gUJCZ78MNItUWR6eji9JofrVVnhoe1UDXyq5NNVrlgVOXU/WDoRi6bMLnjzYo8i+JE4y0m9jQhzYq0Ou0RM7qdPASxmlm6FkCKzmdFaLjW7l8kL8oDtIwl6CI6KY9TL80pP974YpSfiGOAC6ZNff5/vV0Gffpfbygnj0Z3iovrjDH2kTONJjZbQlDm1lVYjKuZJ9P+FwaAFTDQh5rZ64XWwjvXQP2oKVWg2WvG3d/Ag7OTpfA5vuSq8EP9BeShj4UNAF0SHM7cXYdckr83xKwbyKTN1AhNOIB5jSM2EjL/xtbKH5IlZRghf08cq+5Lr4LMG7sB8/NZ/KLzWcAhc4cHU/koa4RPuhAuoTNKgDP1maMjTgId+jCjuLr2HjTivgo645YhVEa42gy75Hx+cnNNs/M4xN85dKlBntcm+wEb8Jx3vTAh1nuDAMF5gnYPicAe+9D7qYAhCKXgfLuO+mZELlH7fD0nCmH+Y+7JLvXrjTXLfwwsoGahKAY0Ya3r+4gb/cTqlLVaxg3D8+r6tvVzqc/HX3Z1+HewsDb2KKPVPbpSkKN3uul1Q90c=
