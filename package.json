@@ -8,7 +8,7 @@
     "dev": "./node_modules/.bin/env-cmd -f ./config/dev.env nodemon src/server.js -e js,hbs,",
     "lint": "eslint ./src",
     "test:dev": "./node_modules/.bin/env-cmd -f ./config/test.env mocha --timeout 10000",
-    "test:prod": "mocha --timeout 10000"
+    "test": "mocha --timeout 10000"
   },
   "author": "Okwor Emeka",
   "license": "ISC",
