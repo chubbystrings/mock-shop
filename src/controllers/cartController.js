@@ -45,7 +45,7 @@ exports.viewCartItems = async (request, response) => {
     return response.status(200).send({
       status: 'successful',
       data: {
-        ...productData.rows,
+        rows: [...productData.rows],
       },
     });
   } catch (error) {

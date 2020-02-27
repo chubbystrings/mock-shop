@@ -3,7 +3,12 @@
   "scripts": {},
   "env": {},
   "formation": {},
-  "addons": [],
+  "addons": [{
+    "plan": "heroku-postgresql:hobby-dev",
+    "options": {
+      "version": "10"
+    }
+ }],
   "buildpacks": [
     {
       "url": "heroku/nodejs"
