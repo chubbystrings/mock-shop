@@ -163,7 +163,7 @@ exports.editProduct = async (request, response) => {
         });
 
       const { rows, rowCount } = await
-      pool.query('UPDATE products SET name = $1, description = $2, category = $3, price = $4, instock = $5, imageurl = $6, publicid = $7, updatedon = now() returning *', [name, description, CAT, price, inStock, resultData.url, resultData.public_id]);
+      pool.query('UPDATE products SET name = $1, description = $2, categoryid = $3, price = $4, instock = $5, imageurl = $6, publicid = $7, updatedon = now() returning *', [name, description, CAT, price, inStock, resultData.url, resultData.public_id]);
       if (!rows || rowCount === 0) {
         return response.status(400).send({
           status: 'error',
@@ -183,6 +183,7 @@ exports.editProduct = async (request, response) => {
         data: {
           message: 'Updated Successfully',
           id: rows[0].id,
+          imageUrl: resultData.url,
         },
       });
     }
