@@ -26,7 +26,7 @@ exports.viewAllProducts = async (request, response) => {
     return response.status(200).send({
       status: 'successful',
       data: {
-        ...rows,
+        rows: [...rows],
       },
     });
   } catch (error) {
