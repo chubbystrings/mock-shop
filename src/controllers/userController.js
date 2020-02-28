@@ -31,15 +31,14 @@ exports.signUp = async (request, response) => {
     return response.status(201).send({
       status: 'success',
       data: {
-        message: 'Account Created successfully',
-        id: rows[0].id,
+        userId: rows[0].id,
         email: rows[0].email,
         isAdmin: rows[0].isadmin,
       },
     });
   } catch (error) {
     if (error.routine === '_bt_check_unique') {
-      return response.status(500).send({ status: 'error', error: 'email already exist' });
+      return response.status(409).send({ status: 'error', error: 'email already exist' });
     }
     console.log(error);
     return response.status(500).send({
@@ -77,6 +76,8 @@ exports.signIn = async (request, response) => {
       data: {
         token,
         userId: resultData.rows[0].id,
+        email: resultData.rows[0].email,
+        isAdmin: resultData.rows[0].isadmin,
       },
     });
   } catch (error) {

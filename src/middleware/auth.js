@@ -41,7 +41,7 @@ const Auth = {
   async verifyAdminToken(req, res, next) {
     try {
       if (!req.headers.authorization) {
-        return res.status(400).send({
+        return res.status(401).send({
           status: 'error',
           error: 'Unauthorized, Bad request',
         });

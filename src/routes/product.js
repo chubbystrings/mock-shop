@@ -18,7 +18,7 @@ router.post('/product/add', Auth.verifyAdminToken, multerUpload, productControll
   return res.send();
 });
 
-router.patch('/product/:productid', Auth.verifyAdminToken, multerUpload, productController.editProduct, (error, req, res, next) => {
+router.put('/product/:productid', Auth.verifyAdminToken, multerUpload, productController.editProduct, (error, req, res, next) => {
   if (error) {
     const { message } = error;
     return res.status(400).send({ status: 'error', error: message });

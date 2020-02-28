@@ -51,6 +51,13 @@ exports.addProduct = async (request, response) => {
       name, description, category, price, inStock,
     } = request.body;
 
+    if (!name || !description || !category || !price || !inStock) {
+      return response.status(400).send({
+        status: 'error',
+        error: 'One or more field cannot be empty',
+      });
+    }
+
     const { path } = request.file;
     const newName = request.user.USERID;
     const uniqueFilename = `${newName}-${new Date().toISOString()}`;
@@ -93,7 +100,6 @@ exports.addProduct = async (request, response) => {
     return response.status(201).send({
       status: 'successful',
       data: {
-        message: 'Product uploaded successfully',
         id: productData.rows[0].id,
         imageUrl: productData.rows[0].imageurl,
       },
@@ -181,14 +187,13 @@ exports.editProduct = async (request, response) => {
       return response.status(200).send({
         status: 'successful',
         data: {
-          message: 'Updated Successfully',
           id: rows[0].id,
           imageUrl: resultData.url,
         },
       });
     }
     const { rows, rowCount } = await
-    pool.query('UPDATE products SET name = $1, description = $2, category = $3, price = $4, instock = $5, updatedon = now() returning *', [name, description, CAT, price, inStock]);
+    pool.query('UPDATE products SET name = $1, description = $2, categoryid = $3, price = $4, instock = $5, updatedon = now() returning *', [name, description, CAT, price, inStock]);
     if (!rows || rowCount === 0) {
       return response.status(400).send({
         status: 'error',
@@ -198,8 +203,8 @@ exports.editProduct = async (request, response) => {
     return response.status(200).send({
       status: 'successful',
       data: {
-        message: 'Updated Successfully',
         id: rows[0].id,
+        imageUrl: rows[0].imageurl,
       },
     });
   } catch (error) {
@@ -216,9 +221,9 @@ exports.editProduct = async (request, response) => {
 exports.deleteProduct = async (request, response) => {
   const productId = request.params.productid;
   if (!productId) {
-    return response.status(401).send({
+    return response.status(400).send({
       status: 'error',
-      error: 'Not authorized or Bad request',
+      error: 'Bad request',
     });
   }
   try {
@@ -226,7 +231,7 @@ exports.deleteProduct = async (request, response) => {
     if (!deletedData.rows || deletedData.rowCount === 0) {
       return response.status(400).send({
         status: 'error',
-        error: 'Could not delete Product, Bad request',
+        error: 'Could not delete Product',
       });
     }
 
