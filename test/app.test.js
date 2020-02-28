@@ -57,7 +57,7 @@ after(async () => {
 
 describe('Users Test', () => {
   it('Users can signup', async () => {
-    const userData = await request(app)
+    await request(app)
       .post('/api/v1/auth/signup')
       .send({
         firstName: 'izu',
@@ -66,7 +66,7 @@ describe('Users Test', () => {
         password: '1234567',
       })
       .expect(201);
-    await pool.query('delete from users where id = $1', [userData.body.data.id]);
+    await pool.query('delete from users where email = $1', ['izu@yahoo.com']);
   });
 
   it('Users can signin', async () => {
@@ -125,7 +125,7 @@ describe('Products', () => {
 
   it('Admin can edit a product', async () => {
     const productData = await request(app)
-      .patch(`/api/v1/products/product/${productId}`)
+      .put(`/api/v1/products/product/${productId}`)
       .set('authorization', `Bearer ${token}`)
       .field('name', 'LG Television')
       .field('description', 'LG flat screen 53 inch LED TV')
@@ -203,7 +203,7 @@ describe('Users ', () => {
 
   it('User cannot edit a Product', async () => {
     await request(app)
-      .patch(`/api/v1/products/product/${productIdForCart}`)
+      .put(`/api/v1/products/product/${productIdForCart}`)
       .set('authorization', `Bearer ${userToken}`)
       .field('name', 'LG Television')
       .field('description', 'LG flat screen 53 inch LED TV')
