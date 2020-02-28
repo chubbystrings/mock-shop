@@ -1,9 +1,11 @@
-##MOCKSHOP API
+## MOCKSHOP API
 
 ```
-#mochshop is an online store api, for proper documentation please check out link below
+# mochshop is an online store api, for proper documentation please check out link below
 
-(https://mockshop-product.herokuapp.com/api-docs/ "Mockshop Documentation")
+Mockshop Docs:
+
+https://mockshop-product.herokuapp.com/api-docs/ 
 ```
 
 *created with love by chubbystrings*
