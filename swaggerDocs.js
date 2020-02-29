@@ -22,11 +22,6 @@ module.exports = {
       description: 'Production server',
     },
   ],
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
   tags: [
     {
       name: 'CRUD operations',
@@ -216,10 +211,12 @@ module.exports = {
       },
     },
     '/api/v1/products/product/add': {
-      security: {
-        bearerAuth: [],
-      },
       post: {
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         tags: ['CRUD operations'],
         description: 'Admin can Add Products',
         summary: 'Only an Admin can Create and add products, requires authentication via JWT file size should not exceed 1mb jpg and png ONLY',
@@ -312,7 +309,7 @@ module.exports = {
             },
           },
           401: {
-            description: 'Not Authorized',
+            description: 'Not Authorized check token',
             content: {
               'application/json': {
                 schema: {
@@ -358,10 +355,12 @@ module.exports = {
       },
     },
     '/api/v1/products/product/{productid}': {
-      security: {
-        bearerAuth: [],
-      },
       put: {
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         tags: ['CRUD operations'],
         description: 'Admin can Edit a Product',
         summary: 'Only an Admin can Edit a specific product, authentication required via JWT, file size should not exceed 1mb jpg and png ONLY',
@@ -465,7 +464,7 @@ module.exports = {
             },
           },
           401: {
-            description: 'Not Authorized',
+            description: 'Not Authorized, check token',
             content: {
               'application/json': {
                 schema: {
@@ -495,6 +494,11 @@ module.exports = {
         },
       },
       delete: {
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         tags: ['CRUD operations'],
         description: 'Admin can delete a specific Product',
         summary: 'Admin can delete product, authentication required via JWT',
@@ -552,7 +556,7 @@ module.exports = {
             },
           },
           401: {
-            description: 'Not Authorized',
+            description: 'Not Authorized, check token',
             content: {
               'application/json': {
                 schema: {
@@ -583,10 +587,12 @@ module.exports = {
       },
     },
     '/api/v1/cart': {
-      security: {
-        bearerAuth: [],
-      },
       get: {
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         tags: ['CRUD operations'],
         description: 'Users can view all Products in  their cart',
         summary: 'Users can view orders on cart, authentication required via JWT',
@@ -604,6 +610,21 @@ module.exports = {
               },
             },
           },
+          401: {
+            description: 'Unauthorized User check token',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Error',
+                },
+                example: {
+                  status: 'error',
+                  error: 'Not Authorized',
+                },
+              },
+            },
+          },
+
           404: {
             description: 'No products found in cart',
             content: {
@@ -638,10 +659,12 @@ module.exports = {
       },
     },
     '/api/v1/cart/{productid}': {
-      security: {
-        bearerAuth: [],
-      },
       post: {
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         tags: ['CRUD operations'],
         description: 'users can add product/item to cart',
         summary: 'Users can add items/products to cart, authentication required via JWT',
@@ -699,7 +722,7 @@ module.exports = {
             },
           },
           401: {
-            description: 'Unauthorized User',
+            description: 'Unauthorized User check token',
             content: {
               'application/json': {
                 schema: {
@@ -745,10 +768,12 @@ module.exports = {
       },
     },
     '/api/v1/cart/{cartid}': {
-      security: {
-        bearerAuth: [],
-      },
       delete: {
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         tags: ['CRUD operations'],
         description: 'User can delete Item from cart',
         summary: 'Users can delete/remove items on cart, authentication required via JWT',
@@ -807,7 +832,7 @@ module.exports = {
           },
 
           401: {
-            description: 'Unauthorized User',
+            description: 'Unauthorized User, check token',
             content: {
               'application/json': {
                 schema: {
